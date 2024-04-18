@@ -66,6 +66,11 @@ export default function RegisterScreen({ navigation }) {
             value={cidade}
             onChangeText={setCidade}
           />
+          <TextInput
+            placeholder="Estado"
+            value={estado}
+            onChangeText={setEstado}
+          />
         </View>
         <Button onPress={() => navigation.navigate("LoginScreen")}>
           Voltar ao login
