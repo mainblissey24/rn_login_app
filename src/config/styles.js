@@ -11,6 +11,6 @@ export const styles = StyleSheet.create({
         alignSelf: "stretch",
     },
     input:{
-        
+        marginBottom:10,
     }
 });
