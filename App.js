@@ -1,35 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { Provider as PaperProvider } from "react-native-paper";
+import { Provider } from "react-native-paper";
 import { themeDark, themeLight } from "./src/config/theme";
 import { useColorScheme } from "react-native";
-// lembre-se de npm install @react-native-async-storage/async-storage
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import AppNavigator from "./src/navigation/AppNavigator";
 
-const App = () => {
-  const systemTheme = useColorScheme();
-  const [theme, setTheme] = useState(
-    systemTheme === "dark" ? themeDark : themeLight
-  );
+export default function App() {
+  // pega o tema do dispositivo
+  const colorScheme = useColorScheme();
+  // criação de tema
+  // https://callstack.github.io/react-native-paper/docs/guides/theming/#creating-dynamic-theme-colors
+  const isDarkMode = colorScheme === "dark";
 
-  useEffect(() => {
-    const loadTheme = async () => {
-      const savedTheme = await AsyncStorage.getItem("theme");
-      if (savedTheme) {
-        setTheme(savedTheme === "dark" ? themeDark : themeLight);
-      } else {
-        setTheme(systemTheme === "dark" ? themeDark : themeLight);
-      }
-    };
-
-    loadTheme();
-  }, [systemTheme]);
+  // operador ternário
+  const theme = isDarkMode ? themeDark : themeLight;
 
   return (
-    <PaperProvider theme={theme}>
+    <Provider theme={theme}>
+      {/* aqui usamos o provider do RNP */}
       <AppNavigator />
-    </PaperProvider>
+    </Provider>
   );
-};
-
-export default App;
+}
